@@ -2,3 +2,15 @@ node_modules/
 dist/
 .env*
 !.env.example
+/docs/
+.env
+.env.*
+!.env.example
+
+data/raw/
+data/processed/
+data/intermediate/
+
+.venv/
+__pycache__/
+*.pyc

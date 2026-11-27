@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Temporary dataset inventory",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"dir /s /b"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Temporary node runtime check",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"console.log(process.version)"
+			],
+			"isBackground": false
+		}
+	]
+}
