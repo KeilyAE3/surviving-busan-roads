@@ -1,1 +1,20 @@
-{"name":"busan-driving-ui","version":"0.1.0","private":true,"type":"module","scripts":{"dev":"vite","build":"vite build","preview":"vite preview"},"dependencies":{"react":"^19.2.0","react-dom":"^19.2.0"},"devDependencies":{"vite":"^7.2.0"}}
+{
+  "name": "busan-driving-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "build": "vite build",
+    "preview": "node dev.mjs --preview",
+    "prepare:data": "python -m difficulty.build_db",
+    "test": "python -m unittest difficulty.test_difficulty difficulty.test_routing -v && node --test src/data/presentation.test.js"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "vite": "^7.2.0"
+  }
+}

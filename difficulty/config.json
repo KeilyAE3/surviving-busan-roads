@@ -1,0 +1,18 @@
+{
+  "version": "prototype-2-softscale",
+  "junction_edge_m": 35,
+  "junction_diameter_m": 80,
+  "arm_angle_deg": 20,
+  "straight_deg": 25,
+  "turn_full_deg": 150,
+  "intersection_full_arms": 6,
+  "merge_score": 55,
+  "continuous_distance_m": 400,
+  "continuous_base": 55,
+  "continuous_proximity": 35,
+  "congestion_frequency_weight": 0.5,
+  "congestion_time_weight": 0.5,
+  "speed_decline_weight": 0.25,
+  "traffic_amplification": 0.25,
+  "score_half_saturation": 60
+}

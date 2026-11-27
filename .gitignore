@@ -2,3 +2,7 @@ node_modules/
 dist/
 .env*
 !.env.example
+!.env.server.example
+difficulty_data/
+integrated_roads/
+__pycache__/

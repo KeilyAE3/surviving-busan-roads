@@ -1,7 +1,9 @@
 import React,{useEffect,useState} from 'react';
 import KakaoMap,{searchPlaces,mapHelp} from '../map/KakaoMap.jsx';
 const options=[['▥','난이도 우선','부담이 적은 길'],['◷','소요시간 우선','빠르게 가는 길'],['♧','초보자 추천','단순한 길']];
-export default function Route({stops,setStops,option,setOption}){
+export default function Route({stops,setStops,option,setOption,devPanel,onRoute,busy,error}){
+ const [period,setPeriod]=useState('11시~17시');
+ const [day,setDay]=useState('weekday');
  const [query,setQuery]=useState(null);
  const [results,setResults]=useState(null);
  useEffect(()=>{
@@ -25,8 +27,11 @@ export default function Route({stops,setStops,option,setOption}){
    </div>;
   })}</div>
   <div className="stop-actions"><button type="button" className="button secondary" disabled={stops.length>=6} onClick={()=>{closeSearch();setStops(previous=>[...previous.slice(0,-1),{id:Math.max(...previous.map(stop=>stop.id))+1,text:''},previous.at(-1)])}}>⊕ 경유지 추가 <small>({stops.length}/6)</small></button><button type="button" className="button secondary" onClick={()=>move(0,stops.length-1)}>⇄ 출발·도착 교환</button></div>
-  <fieldset className="options"><legend>⚙ 경로 옵션</legend><div>{options.map(([icon,title,desc],i)=><label key={title}><input type="radio" name="route-option" checked={i===option} onChange={()=>setOption(i)}/><span>{icon}</span><strong>{title}</strong><small>{desc}</small></label>)}</div></fieldset>
+  <fieldset className="options" disabled><legend>⚙ 경로 옵션 · 추후 지원</legend><div>{options.map(([icon,title,desc],i)=><label key={title}><input type="radio" name="route-option" checked={i===option} onChange={()=>setOption(i)}/><span>{icon}</span><strong>{title}</strong><small>{desc}</small></label>)}</div></fieldset>
+  <p className="sub">현재는 거리 기준 자체 탐색을 제공합니다.</p>
+  <div className="traffic-choice"><label>교통 통계 <select value={day} onChange={e=>setDay(e.target.value)}><option value="weekday">2025 평일 대표 통계</option><option value="weekend">주말 · 교통 미평가</option></select></label><label>시간대 <select value={period} disabled={day==='weekend'} onChange={e=>setPeriod(e.target.value)}>{['4시~10시','11시~17시','18시~24시'].map(p=><option key={p}>{p}</option>)}</select></label></div>
   <a className="driving-tip" href="#/points"><strong>◈ 부산 운전 포인트</strong><small>교차로와 합류 구간에서 미리 진행 방향을 확인하세요.</small></a>
-  <a href="#/result" className="button primary analyze">경로 분석 시작　→</a><p className="phase-note">입력과 별개로 디자인 시연용 결과를 표시합니다.</p>
+  <div className="routing-notice"><strong>선택한 방문 순서대로 탐색합니다.</strong><p>회전 제한과 차량 출입구 정보가 불완전한 실험 경로입니다. 실제 통행 허용을 보장하지 않으며 운전 안내용으로 사용하지 마세요.</p><button className="button primary analyze" disabled={busy||stops.some(s=>!s.place)} onClick={()=>onRoute({period,day_type:day})}>{busy?'도로망 탐색·평가 중…':'경로 탐색 및 분석 →'}</button>{error&&<p className="evaluation-error" role="alert">{error}</p>}</div>
+  {devPanel}
  </section><KakaoMap stops={stops}/></main>;
 }
