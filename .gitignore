@@ -14,3 +14,5 @@ data/intermediate/
 .venv/
 __pycache__/
 *.pyc
+
+data.zip
